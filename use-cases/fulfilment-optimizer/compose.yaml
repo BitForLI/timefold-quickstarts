@@ -1,0 +1,49 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: fulfilment
+      POSTGRES_USER: fulfilment
+      POSTGRES_PASSWORD: fulfilment
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fulfilment"]
+      interval: 3s
+      timeout: 3s
+      retries: 15
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  localstack:
+    image: localstack/localstack:4.0
+    environment:
+      SERVICES: sqs
+      AWS_DEFAULT_REGION: ap-southeast-2
+    ports:
+      - "4566:4566"
+    volumes:
+      - ./localstack/init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh:ro
+
+  optimiser:
+    build: .
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/fulfilment
+      DB_USER: fulfilment
+      DB_PASSWORD: fulfilment
+      SQS_ENABLED: "true"
+      SQS_ENDPOINT: http://localstack:4566
+      SQS_QUEUE_URL: http://localstack:4566/000000000000/fulfilment-events
+      AWS_REGION: ap-southeast-2
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      localstack:
+        condition: service_started
+
+volumes:
+  postgres-data:

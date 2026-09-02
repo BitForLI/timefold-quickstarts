@@ -1,0 +1,28 @@
+{
+  "name": "east-coast-orders",
+  "centres": [
+    {
+      "id": "SYD",
+      "dailyCapacityUnits": 100,
+      "inventoryBySku": { "LAPTOP": 25, "HEADSET": 40 },
+      "deliveryDaysByRegion": { "NSW": 1, "VIC": 2 },
+      "shippingCostCentsByRegion": { "NSW": 450, "VIC": 650 }
+    },
+    {
+      "id": "MEL",
+      "dailyCapacityUnits": 80,
+      "inventoryBySku": { "LAPTOP": 20, "HEADSET": 50 },
+      "deliveryDaysByRegion": { "NSW": 2, "VIC": 1 },
+      "shippingCostCentsByRegion": { "NSW": 600, "VIC": 400 }
+    }
+  ],
+  "orders": [
+    { "id": "ORDER-1001", "deliveryRegion": "NSW", "maxDeliveryDays": 2, "priority": 3 },
+    { "id": "ORDER-1002", "deliveryRegion": "VIC", "maxDeliveryDays": 1, "priority": 2 }
+  ],
+  "allocations": [
+    { "id": "LINE-1", "order": { "id": "ORDER-1001", "deliveryRegion": "NSW", "maxDeliveryDays": 2, "priority": 3 }, "sku": "LAPTOP", "quantity": 4 },
+    { "id": "LINE-2", "order": { "id": "ORDER-1001", "deliveryRegion": "NSW", "maxDeliveryDays": 2, "priority": 3 }, "sku": "HEADSET", "quantity": 4 },
+    { "id": "LINE-3", "order": { "id": "ORDER-1002", "deliveryRegion": "VIC", "maxDeliveryDays": 1, "priority": 2 }, "sku": "HEADSET", "quantity": 6 }
+  ]
+}

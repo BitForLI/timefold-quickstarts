@@ -30,6 +30,7 @@
     <module>use-cases/maintenance-scheduling</module>
     <module>use-cases/vehicle-routing</module>
     <module>use-cases/order-picking</module>
+    <module>use-cases/fulfilment-optimizer</module>
     <module>use-cases/employee-scheduling</module>
     <module>use-cases/food-packaging</module>
     <module>use-cases/conference-scheduling</module>

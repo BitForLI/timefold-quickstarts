@@ -1,0 +1,32 @@
+name: Fulfilment Optimizer CI
+
+on:
+  push:
+    paths:
+      - "use-cases/fulfilment-optimizer/**"
+      - ".github/workflows/fulfilment-optimizer.yml"
+  pull_request:
+    paths:
+      - "use-cases/fulfilment-optimizer/**"
+      - ".github/workflows/fulfilment-optimizer.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: use-cases/fulfilment-optimizer
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+      - name: Unit and API tests
+        run: mvn --batch-mode verify
+      - name: Build container
+        run: docker build --tag fulfilment-optimizer:${{ github.sha }} .
