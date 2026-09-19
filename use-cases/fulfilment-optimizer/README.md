@@ -1,4 +1,4 @@
-# Fulfilment Optimizer
+# Order Fulfilment Optimizer
 
 A service that decides which fulfilment centre should handle each e-commerce order line while respecting stock,
 capacity, cost, and delivery deadlines.
