@@ -1,7 +1,20 @@
 # Fulfilment Optimizer
 
-A Java 21 service that assigns e-commerce order lines to fulfilment centres while respecting operational limits and
-optimising delivery decisions. It is an original extension developed in this fork of the Timefold Solver Quickstarts.
+A service that decides which fulfilment centre should handle each e-commerce order line while respecting stock,
+capacity, cost, and delivery deadlines.
+
+## Product at a glance
+
+| | |
+| --- | --- |
+| **Users** | E-commerce operations and fulfilment teams |
+| **Problem** | The cheapest centre may lack stock or capacity, while splitting an order can increase cost and delay |
+| **Input** | Orders, order lines, inventory, centre capacity, delivery lanes, costs, and SLAs |
+| **Output** | A feasible assignment where possible, its score, and the best solution found so far |
+| **Service model** | Idempotent asynchronous API with persisted jobs and lifecycle events |
+
+The Java 21 implementation combines a deterministic greedy baseline with Timefold Solver so the result can be
+compared with a simple, reproducible starting point. It is an original extension developed in this fork of the Timefold Solver Quickstarts.
 The surrounding fork retains the upstream vehicle-routing, scheduling and other solver examples; this README describes
 the fulfilment module added here, not authorship of those existing examples.
 
